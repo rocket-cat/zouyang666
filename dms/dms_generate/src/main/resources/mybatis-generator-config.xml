@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <properties resource="jdbc.properties"></properties>
+    <classPathEntry location="${jdbc.path}"/>
+
+    <context id="context" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <!--5.suppressAllComments 设置为true表示不要自动生成注释 -->
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="${jdbc.driver}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}"
+                        password="${jdbc.password}"/>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!--4. 指定实体类的包名称以及路径-->
+        <javaModelGenerator targetPackage="com.itheima.domain.user"
+                            targetProject="D:\itheima\project\test01\dms\dms_domain\src\main\java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--3. 指定接口映射文件的路径-->
+        <sqlMapGenerator targetPackage="com.itheima.dao.user"
+                         targetProject="D:\itheima\project\test01\dms\dms_dao\src\main\resources">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!--2. 指定接口文件的包名称以及路径 -->
+        <!--targetPackage 指定包名称； targetProject 指定接口文件的生成路径-->
+        <javaClientGenerator targetPackage="com.itheima.dao.user"
+                             targetProject="D:\itheima\project\test01\dms\dms_dao\src\main\java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+
+        <!-- 1. 指定对哪些表进行映射; tableName 表名称;  -->
+        <!--domainObjectName  实体类名称； mapperName映射名称（dao接口名称、接口映射名称） -->
+        <!--6. enableSelectByExample="true" 表示自动逆向生成查询的sql，且带条件。-->
+        <table schema="test" tableName="users"
+               domainObjectName="User"
+               mapperName="UserDao"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="true" enableUpdateByExample="false"/>
+
+    </context>
+</generatorConfiguration>
